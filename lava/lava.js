@@ -3,7 +3,7 @@
 */
 
 var executed = false;                        // Used to keep track of whether or not the spots were placed
-var num_spots = 100;                          // Total number of spots in the lava
+var num_spots = 100;                         // Total number of spots in the lava
 var spots = new Array(num_spots);            // Array of spots
 var c_width = 800;                           // Width of canvas
 var c_height = 400;                          // Height of canvas
@@ -44,7 +44,7 @@ class lava_spot {
             this.down = true;
             this.gravity_speed += this.gravity;
             this.spot_y += this.gravity_speed;
-          if(this.spot_y >= this.orig_y)  
+          if(this.spot_y >= this.orig_y)
             this.stop = true;
         } else {
             this.down = false;
@@ -53,13 +53,13 @@ class lava_spot {
             if(this.gravity_speed <= 0)
                 this.down = true;
         }
-    }   
+    }
     if(this.stop)
       this.jumping = false;
     this.re_draw();
   }
-  get curr_y() { 
-    return this.spot_y; 
+  get curr_y() {
+    return this.spot_y;
   }
   get start_y() {
     return this.orig_y;
