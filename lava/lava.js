@@ -1,13 +1,17 @@
-var executed = false;
-var num_spots = 50;
-var spots = new Array(num_spots);
-var taken_x = new Array(num_spots);
-var taken_y = new Array(num_spots);
-var spots_made = 0;
+/* FAIR WARNING - This is my first JavaScript/p5.js script and the code might not be the most efficient so
+                  if you have tips, shoot me an email!
+*/
 
+var executed = false;                        // Used to keep track of whether or not the spots were placed
+var num_spots = 100;                          // Total number of spots in the lava
+var spots = new Array(num_spots);            // Array of spots
+var c_width = 800;                           // Width of canvas
+var c_height = 400;                          // Height of canvas
+
+// Class for the spots on the lava
 class lava_spot {
   constructor() {
-    this.spot_x = Math.floor(Math.random() * 395);
+    this.spot_x = Math.floor(Math.random() * (c_width - 5));
     this.spot_y = Math.floor(Math.random() * 95) + 300;
     this.orig_y = this.spot_y;
     this.color = Math.floor(Math.random() * 100) + 101;
@@ -18,10 +22,12 @@ class lava_spot {
     this.stop = false;
     this.jumping = false;
   }
+  // Place the spot on the lava
   place() {
     fill(255, this.color, 15);
     rect(this.spot_x, this.spot_y, 5, 5);
   }
+  // Update the spot with new color/position
   re_draw() {
     if (this.color >= 200)
       this.color_dir *= -1;
@@ -30,8 +36,8 @@ class lava_spot {
     fill(255, this.color += this.color_dir, 15);
     rect(this.spot_x, this.spot_y, 5, 5);
   }
+  // Make the spot jump!
   jump() {
-    noStroke();
     this.jumping = true;
     if(!this.stop) {
         if(this.down) {
@@ -64,10 +70,11 @@ class lava_spot {
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(c_width, c_height);
 }
 
-function make_spots(num) {
+// Creates and places lava spots
+function spotify(num) {
   noStroke();
   if (!executed) {
     executed = true;
@@ -84,7 +91,6 @@ function make_spots(num) {
     else
       spots[i].re_draw();
   }
-  print(spots[0].y_pos);
 }
 
 function draw() {
@@ -92,6 +98,6 @@ function draw() {
 
   // Lava
   fill(255, 79, 15);
-  rect(0, 300, 400, 100);
-  make_spots(num_spots);
+  rect(0, 300, c_width, 100);
+  spotify(num_spots);
 }
